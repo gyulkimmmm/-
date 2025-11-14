@@ -1,351 +1,156 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="ja">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Style-Type" content="text/css">
-<meta http-equiv="Content-Script-Type" content="text/javascript">
-<title>앤팀 타이틀곡 소트</title>
-<script type="text/javascript">
-<!--
-//*********************************************************
-//
-// ?価するメンバ?の名前のリスト
-//
-// この部分を変更して下さい。名前の削除・追加も可?です。
-// 名前を引用符(")で括り、コン?(,)で区切って下さい。
-// 但し、リストの最後にはコン?を入れてはいけません。
-//
-//*********************************************************
-var namMember = new Array(
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTeam Title Song Sort</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .song-list {
+            margin-bottom: 20px;
+        }
+        .song-item {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
 
-"<img src=> <br>War Cry</br>",
-"<img src=> <br>Yukiakari</br>",
-"<img src=> <br>Under the skin</br>",
-"<img src=> <br>FIREWORK</br>",
-"<img src=> <br>Samidare</br>",
-"<img src=> <br>Aoarashi</br>",
-"<img src=> <br>Jyuugoya</br>",
-"<img src=> <br>Back to Life</br>",
-"<img src=> <br>Go in Blind</br>",
+    <h1>ANTeam Title Song Sort</h1>
 
+    <div class="song-list">
+        <div class="song-item">
+            <img src="image_url1.jpg" alt="War Cry" width="50"> <br> 
+            War Cry
+            <select id="song1">
+                <option value="좋음">좋음</option>
+                <option value="나쁨">나쁨</option>
+                <option value="둘다좋다">둘다좋다</option>
+                <option value="둘다모르겠다">둘다모르겠다</option>
+            </select>
+        </div>
 
-);
-//*********************************************************
+        <div class="song-item">
+            <img src="image_url2.jpg" alt="Yukiakari" width="50"> <br>
+            Yukiakari
+            <select id="song2">
+                <option value="좋음">좋음</option>
+                <option value="나쁨">나쁨</option>
+                <option value="둘다좋다">둘다좋다</option>
+                <option value="둘다모르겠다">둘다모르겠다</option>
+            </select>
+        </div>
 
-var lstMember = new Array();
-var parent = new Array();
-var equal = new Array();
-var rec = new Array();
-var cmp1,cmp2;
-var head1,head2;
-var nrec;
+        <div class="song-item">
+            <img src="image_url3.jpg" alt="Under the skin" width="50"> <br>
+            Under the skin
+            <select id="song3">
+                <option value="좋음">좋음</option>
+                <option value="나쁨">나쁨</option>
+                <option value="둘다좋다">둘다좋다</option>
+                <option value="둘다모르겠다">둘다모르겠다</option>
+            </select>
+        </div>
 
-var numQuestion;
-var totalSize;
-var finishSize;
-var finishFlag;
+        <div class="song-item">
+            <img src="image_url4.jpg" alt="FIREWORK" width="50"> <br>
+            FIREWORK
+            <select id="song4">
+                <option value="좋음">좋음</option>
+                <option value="나쁨">나쁨</option>
+                <option value="둘다좋다">둘다좋다</option>
+                <option value="둘다모르겠다">둘다모르겠다</option>
+            </select>
+        </div>
 
-//変数の初期化+++++++++++++++++++++++++++++++++++++++++++++
-function initList(){
-var n = 0;
-var mid;
-var i;
+        <div class="song-item">
+            <img src="image_url5.jpg" alt="Samidare" width="50"> <br>
+            Samidare
+            <select id="song5">
+                <option value="좋음">좋음</option>
+                <option value="나쁨">나쁨</option>
+                <option value="둘다좋다">둘다좋다</option>
+                <option value="둘다모르겠다">둘다모르겠다</option>
+            </select>
+        </div>
 
-//??トすべき配列
-lstMember[n] = new Array();
-for (i=0; i<namMember.length; i++) {
-lstMember[n][i] = i;
-}
-parent[n] = -1;
-totalSize = 0;
-n++;
+        <div class="song-item">
+            <img src="image_url6.jpg" alt="Aoarashi" width="50"> <br>
+            Aoarashi
+            <select id="song6">
+                <option value="좋음">좋음</option>
+                <option value="나쁨">나쁨</option>
+                <option value="둘다좋다">둘다좋다</option>
+                <option value="둘다모르겠다">둘다모르겠다</option>
+            </select>
+        </div>
 
-for (i=0; i<lstMember.length; i++) {
-//要素数が２以上なら２分割し、
-//分割された配列をlstMemberの最後に加える
-if(lstMember[i].length>=2) {
-mid = Math.ceil(lstMember[i].length/2);
-lstMember[n] = new Array();
-lstMember[n] = lstMember[i].slice(0,mid);
-totalSize += lstMember[n].length;
-parent[n] = i;
-n++;
-lstMember[n] = new Array();
-lstMember[n] = lstMember[i].slice(mid,lstMember[i].length);
-totalSize += lstMember[n].length;
-parent[n] = i;
-n++;
-}
-}
+        <div class="song-item">
+            <img src="image_url7.jpg" alt="Jyuugoya" width="50"> <br>
+            Jyuugoya
+            <select id="song7">
+                <option value="좋음">좋음</option>
+                <option value="나쁨">나쁨</option>
+                <option value="둘다좋다">둘다좋다</option>
+                <option value="둘다모르겠다">둘다모르겠다</option>
+            </select>
+        </div>
 
-//保存用配列
-for (i=0; i<namMember.length; i++) {
-rec[i] = 0;
-}
-nrec = 0;
+        <div class="song-item">
+            <img src="image_url8.jpg" alt="Back to Life" width="50"> <br>
+            Back to Life
+            <select id="song8">
+                <option value="좋음">좋음</option>
+                <option value="나쁨">나쁨</option>
+                <option value="둘다좋다">둘다좋다</option>
+                <option value="둘다모르겠다">둘다모르겠다</option>
+            </select>
+        </div>
 
-//引き分けの結果を保存するリスト
-//キ?：リンク始?の値
-// 値 ：リンク終?の値
-for (i=0; i<=namMember.length; i++) {
-equal[i] = -1;
-}
+        <div class="song-item">
+            <img src="image_url9.jpg" alt="Go in Blind" width="50"> <br>
+            Go in Blind
+            <select id="song9">
+                <option value="좋음">좋음</option>
+                <option value="나쁨">나쁨</option>
+                <option value="둘다좋다">둘다좋다</option>
+                <option value="둘다모르겠다">둘다모르겠다</option>
+            </select>
+        </div>
+    </div>
 
-cmp1 = lstMember.length-2;
-cmp2 = lstMember.length-1;
-head1 = 0;
-head2 = 0;
-numQuestion = 1;
-finishSize = 0;
-finishFlag = 0;
-}
+    <button onclick="generateRanking()">Generate Ranking</button>
 
-//リストの??ト+++++++++++++++++++++++++++++++++++++++++++
-//flag：比較結果
-//  -1：左を選択
-//   0：引き分け
-//   1：右を選択
-function sortList(flag){
-var i;
-var str;
+    <div id="rankingResults"></div>
 
-//recに保存
-if (flag<0) {
-rec[nrec] = lstMember[cmp1][head1];
-head1++;
-nrec++;
-finishSize++;
-while (equal[rec[nrec-1]]!=-1) {
-rec[nrec] = lstMember[cmp1][head1];
-head1++;
-nrec++;
-finishSize++;
-}
-}
-else if (flag>0) {
-rec[nrec] = lstMember[cmp2][head2];
-head2++;
-nrec++;
-finishSize++;
-while (equal[rec[nrec-1]]!=-1) {
-rec[nrec] = lstMember[cmp2][head2];
-head2++;
-nrec++;
-finishSize++;
-}
-}
-else {
-rec[nrec] = lstMember[cmp1][head1];
-head1++;
-nrec++;
-finishSize++;
-while (equal[rec[nrec-1]]!=-1) {
-rec[nrec] = lstMember[cmp1][head1];
-head1++;
-nrec++;
-finishSize++;
-}
-equal[rec[nrec-1]] = lstMember[cmp2][head2];
-rec[nrec] = lstMember[cmp2][head2];
-head2++;
-nrec++;
-finishSize++;
-while (equal[rec[nrec-1]]!=-1) {
-rec[nrec] = lstMember[cmp2][head2];
-head2++;
-nrec++;
-finishSize++;
-}
-}
+    <script>
+        function generateRanking() {
+            // 각 노래의 선택값을 가져옵니다.
+            let results = [];
+            for (let i = 1; i <= 9; i++) {
+                let song = document.getElementById('song' + i).value;
+                results.push({ song: document.getElementById('song' + i).previousElementSibling.textContent.trim(), vote: song });
+            }
 
-//片方のリストを走査し終えた後の処理
-if (head1<lstMember[cmp1].length && head2==lstMember[cmp2].length) {
-//リストcmp2が走査済 - リストcmp1の残りをコピ?
-while (head1<lstMember[cmp1].length){
-rec[nrec] = lstMember[cmp1][head1];
-head1++;
-nrec++;
-finishSize++;
-}
-}
-else if (head1==lstMember[cmp1].length && head2<lstMember[cmp2].length) {
-//リストcmp1が走査済 - リストcmp2の残りをコピ?
-while (head2<lstMember[cmp2].length){
-rec[nrec] = lstMember[cmp2][head2];
-head2++;
-nrec++;
-finishSize++;
-}
-}
+            // 결과를 정렬하기 (예시: '좋음' > '둘다좋다' > '둘다모르겠다' > '나쁨')
+            results.sort(function(a, b) {
+                const order = { '좋음': 1, '둘다좋다': 2, '둘다모르겠다': 3, '나쁨': 4 };
+                return order[a.vote] - order[b.vote];
+            });
 
-//両方のリストの最後に到達した場合は
-//親リストを更新する
-if (head1==lstMember[cmp1].length && head2==lstMember[cmp2].length) {
-for (i=0; i<lstMember[cmp1].length+lstMember[cmp2].length; i++) {
-lstMember[parent[cmp1]][i] = rec[i];
-}
-lstMember.pop();
-lstMember.pop();
-cmp1 = cmp1-2;
-cmp2 = cmp2-2;
-head1 = 0;
-head2 = 0;
+            // 결과 표시
+            let rankingHTML = "<h2>Ranking Results:</h2><ul>";
+            results.forEach(function(result, index) {
+                rankingHTML += `<li>${index + 1}. ${result.song} - ${result.vote}</li>`;
+            });
+            rankingHTML += "</ul>";
 
-//新しい比較を行う前にrecを初期化
-if (head1==0 && head2==0) {
-for (i=0; i<namMember.length; i++) {
-rec[i] = 0;
-}
-nrec = 0;
-}
-}
-
-if (cmp1<0) {
-str = "Battle No."+(numQuestion-1)+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
-document.getElementById("battleNumber").innerHTML = str;
-
-showResult();
-finishFlag = 1;
-}
-else {
-showImage();
-}
-}
-
-//結果の?示+++++++++++++++++++++++++++++++++++++++++++++++
-function showResult() {
-var ranking = 1;
-var sameRank = 1;
-var str = "";
-var i;
-
-str += "<table style=\"width:200px; font-size:12px; line-height:120%; margin-left:auto; margin-right:auto; border:1px solid #000; border-collapse:collapse\" align=\"center\">";
-str += "<tr><td style=\"color:#ffffff; background-color:#000; text-align:center;\">순위<\/td><td style=\"color:#ffffff; background-color:#000; text-align:center;\">이름<\/td><\/tr>";
-
-for (i=0; i<namMember.length; i++) {
-str += "<tr><td style=\"border:1px solid #000; text-align:right; padding-right:5px;\">"+ranking+"<\/td><td style=\"border:1px solid #000; padding-left:5px;\">"+namMember[lstMember[0][i]]+"<\/td><\/tr>";
-if (i<namMember.length-1) {
-if (equal[lstMember[0][i]]==lstMember[0][i+1]) {
-sameRank++;
-} else {
-ranking += sameRank;
-sameRank = 1;
-}
-}
-}
-str += "<\/table>";
-
-document.getElementById("resultField").innerHTML = str;
-}
-
-//比較する２つ要素の?示+++++++++++++++++++++++++++++++++++
-function showImage() {
-var str0 = "Battle No."+numQuestion+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
-var str1 = ""+toNameFace(lstMember[cmp1][head1]);
-var str2 = ""+toNameFace(lstMember[cmp2][head2]);
-
-document.getElementById("battleNumber").innerHTML = str0;
-document.getElementById("leftField").innerHTML = str1;
-document.getElementById("rightField").innerHTML = str2;
-
-numQuestion++;
-}
-
-//数値を名前（顔文字）に変換+++++++++++++++++++++++++++++++
-function toNameFace(n){
-var str = namMember[n];
-
-//顔文字を追加する場合は以下のコメントアウトを外す
-//namMemberのインデックスと矛盾しないように注意
-/*
-str += "<br>────<br>";
-switch(n) {
-//case -1 はサンプルなので削除すること
-case -1: str+="（ ´∀｀）";break;
-default: str+=""+n;
-}
-*/
-return str;
-}
-//-->
-</script>
-<style type="text/css">
-<!--
-/**********************************************************
-
- ?のス?イルを変更する場合はここを編集してください。
-
-**********************************************************/
-#mainTable{
-font-size: 12px;
-font-family: '돋움',sans-serif;
-text-align: center;
-vertical-align: middle;
-width: 410px;
-margin-left: auto;
-margin-right: auto;
-border-collapse: separate;
-border-spacing: 10px 5px;
-}
-#leftField{
-width: 120px;
-height: 150px;
-border: 1px solid #000;
-}
-#rightField{
-width: 120px;
-height: 150px;
-border: 1px solid #000;
-}
-.middleField{
-width: 120px;
-height: 70px;
-border: 1px solid #000;
-}
-//-->
-<!--
-A{
-  text-decoration : none;
-}
--->
-<!--
-a:hover{color:#99ccff;}
--->
-</style>
-<meta name="generator" content="Namo WebEditor(Trial)">
-<meta http-equiv="content-type" content="text/html; charset=utf-8"></head>
-
-<body text="#000000" bgcolor="#ffffff" link="#0099ff" vlink="#0099ff" alink="#0099ff">
-<table id="mainTable" align="center">
-<tr>
-        <td id="battleNumber" colspan="3" style="padding-bottom: 10px;">
-            <p>&nbsp;</p>
-        </td>
-</tr>
-<tr>
-<td id="leftField" onClick="if(finishFlag==0)sortList(-1);" rowspan="2">
-&nbsp;
-</td>
-<td class="middleField" onClick="if(finishFlag==0)sortList(0);">
-둘 다 좋다
-</td>
-<td id="rightField" onClick="if(finishFlag==0)sortList(1);" rowspan="2">
-</td>
-</tr>
-<tr>
-<td class="middleField" onClick="if(finishFlag==0)sortList(0);">
-모르겠다
-</td>
-</tr>
-</table><br><br>
-<div id="resultField" style="text-align:center;">
-    <p><font size="2" face="돋움"><span style="">ML님 블로그 참고했습니당:) </font></p>
-</div>
-<script type="text/javascript">
-<!--
-initList();
-showImage();
-//-->
-</script>
+            document.getElementById('rankingResults').innerHTML = rankingHTML;
+        }
+    </script>
 
 </body>
 </html>
